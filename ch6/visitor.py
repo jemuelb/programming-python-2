@@ -65,13 +65,14 @@ class SearchVisitor(FileVisitor):
 
     def candidate(self, fname):
         ext = os.path.splitext(fname)[1]
-        if self.textexts:
+        if self.testexts:
             return ext in self.testexts
         else:
             return ext not in self.skipexts
 
+    # extends FileVisitor method from base class
     def visitfile(self, fname):
-        FileVisitor.visitfile(self, fname)
+        FileVisitor.visitfile(self, fname)  # calls method for fcount and trace
         if not self.candidate(fname):
             if self.trace > 0: print('Skipping', fname)
         else:
